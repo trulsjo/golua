@@ -332,6 +332,11 @@ func (L *State) IsThread(index int) bool {
 // lua_isuserdata
 func (L *State) IsUserdata(index int) bool { return C.lua_isuserdata(L.s, C.int(index)) == 1 }
 
+// lua_len
+func (L *State) Len(index int) {
+	C.lua_len(L.s, C.int(index))
+}
+
 // lua_lessthan
 func (L *State) LessThan(index1, index2 int) bool {
 	return C.lua_compare(L.s, C.int(index1), C.int(index2), C.LUA_OPLT) == 1
