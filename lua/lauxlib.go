@@ -142,6 +142,17 @@ func (L *State) GSub(s string, p string, r string) string {
 	return C.GoString(C.luaL_gsub(L.s, Cs, Cp, Cr))
 }
 
+// luaL_loadbuffer
+func (L *State) LoadBuffer(buf []byte, name string) int {
+	Cbuf := C.CBytes(buf)
+	Cname := C.CString(name)
+	defer func() {
+		C.free(Cbuf)
+		C.free(unsafe.Pointer(Cname))
+	}()
+	return int(C.luaL_loadbufferx(L.s, (*C.char)(Cbuf), C.size_t(len(buf)), Cname, nil))
+}
+
 // luaL_loadfile
 func (L *State) LoadFile(filename string) int {
 	Cfilename := C.CString(filename)
