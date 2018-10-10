@@ -252,10 +252,10 @@ func (L *State) Equal(index1, index2 int) bool {
 func (L *State) GC(what, data int) int { return int(C.lua_gc(L.s, C.int(what), C.int(data))) }
 
 // lua_getfield
-func (L *State) GetField(index int, k string) {
+func (L *State) GetField(index int, k string) LuaValType {
 	Ck := C.CString(k)
 	defer C.free(unsafe.Pointer(Ck))
-	C.lua_getfield(L.s, C.int(index), Ck)
+	return LuaValType(C.lua_getfield(L.s, C.int(index), Ck))
 }
 
 // Pushes on the stack the value of a global variable (lua_getglobal)
