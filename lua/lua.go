@@ -9,7 +9,7 @@ package lua
 #cgo CFLAGS: -I ${SRCDIR}/lua
 #cgo llua LDFLAGS: -llua
 #cgo luaa LDFLAGS: -llua -lm -ldl
-#cgo linux,!llua,!luaa LDFLAGS: -llua5.2
+#cgo linux,!llua,!luaa LDFLAGS: -L../../Factorio-Lua/src/build -lLua
 #cgo darwin,!luaa LDFLAGS: -llua
 #cgo freebsd,!luaa LDFLAGS: -llua
 
