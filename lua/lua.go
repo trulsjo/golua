@@ -312,10 +312,10 @@ func (L *State) IsNone(index int) bool { return LuaValType(C.lua_type(L.s, C.int
 func (L *State) IsNoneOrNil(index int) bool { return int(C.lua_type(L.s, C.int(index))) <= 0 }
 
 // lua_isnumber
-func (L *State) IsNumber(index int) bool { return C.lua_isnumber(L.s, C.int(index)) == 1 }
+func (L *State) IsNumber(index int) bool { return C.lua_isnumberorstringconvertabletonumber(L.s, C.int(index)) == 1 }
 
 // lua_isstring
-func (L *State) IsString(index int) bool { return C.lua_isstring(L.s, C.int(index)) == 1 }
+func (L *State) IsString(index int) bool { return C.lua_isstringornumberconvertabletostring(L.s, C.int(index)) == 1 }
 
 // lua_istable
 func (L *State) IsTable(index int) bool {
@@ -461,9 +461,9 @@ func (L *State) Replace(index int) {
 }
 
 // lua_resume
-func (L *State) Resume(narg int) int {
-	return int(C.lua_resume(L.s, nil, C.int(narg)))
-}
+//func (L *State) Resume(narg int) int {
+//	return int(C.lua_resume(L.s, nil, C.int(narg)))
+//}
 
 // lua_setallocf
 func (L *State) SetAllocf(f Alloc) {
@@ -500,9 +500,9 @@ func (L *State) SetTop(index int) {
 }
 
 // lua_status
-func (L *State) Status() int {
-	return int(C.lua_status(L.s))
-}
+//func (L *State) Status() int {
+//	return int(C.lua_status(L.s))
+//}
 
 // lua_toboolean
 func (L *State) ToBoolean(index int) bool {
@@ -588,9 +588,9 @@ func XMove(from *State, to *State, n int) {
 }
 
 // lua_yield
-func (L *State) Yield(nresults int) int {
-	return int(C.lua_yieldk(L.s, C.int(nresults), 0, nil))
-}
+//func (L *State) Yield(nresults int) int {
+//	return int(C.lua_yieldk(L.s, C.int(nresults), 0, nil))
+//}
 
 // Restricted library opens
 
